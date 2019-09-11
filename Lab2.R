@@ -31,5 +31,37 @@ x*y+z #multiplication then addition
 x*(y+z) #parentheses the multiplication
 
 #Inf, -Inf, NaN, NULL and NA
-2^2000
--2^2000
+2^2000 #higher number than console can compute
+-2^2000 #-inf
+0/0 #nan = Not a number
+m=matrix(data=1:10,nrow = 2,ncol = 3, dimnames = NULL) 
+# null sets statement to false
+
+#custom operator
+'%myop%'=function(a,b){(a*2)+(b*3)}
+
+#animals
+animals=function(x){
+  if(x=="d")
+    "hummingbird"
+  else if(x=="e")
+    'sloth'
+  else if(x=="f")
+    'turtle'
+  else if(x=="g")
+    'whale shark'
+}
+
+#fish data script
+load(fish)
+nrow(fish)
+ncol(fish)
+str(fish)
+#character: used for names, not numbers
+#numeric: numeric data
+#integer: integer data
+#factor - allows you to sort different "levels"
+#POSIXct - date time class
+as.character(fish$area_fac)
+remove(fish$avg.DNE.m)
+
