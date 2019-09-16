@@ -20,4 +20,4 @@ fish.no.na=fish[!is.na(fish$year)]
 unique(fish.no.na)
 
 file = list.files(full.names=TRUE, pattern = ".txt")
-d = read.table(file,skip=10)
+d = read.table(file,skip=10) 
