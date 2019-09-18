@@ -50,6 +50,7 @@ animals=function(x){
     'turtle'
   else if(x=="g")
     'whale shark'
+  else 'snek'
 }
 
 #fish data script
