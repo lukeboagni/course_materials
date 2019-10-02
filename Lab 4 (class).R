@@ -49,11 +49,9 @@ c2 = subset(x = fish, depth_fac == "Deep", select = c("depth_fac", "parcel.lengt
 c3 = cbind(c1,c2)
 
 #merging 2 df, making sure the observations match
-m1 = subset(x = fish, depth_fac == "Deep", select = c("transect.id", "area_fac",))
+m1 = subset(x = fish, depth_fac == "Deep", select = c("transect.id", "area_fac"))
 m1$seq = seq(1,nrow(m1),1)
 m2 = subset(x = fish, depth_fac == "Deep", select = c("transect.id","depth_fac","group"))
 m2$seq = seq(1,nrow(m2),1)
 #merge
-m3 = full_join(x = m1,y = m2,"seq")
-
-u = seq(from = , to = , by = )
+m3 = merge(x = m1,y = m2,by = "seq")
