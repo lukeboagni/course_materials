@@ -72,4 +72,4 @@ join.group2 = full_join(join.group,group.count.df, by = "transect")
 #freestyle
 freestyle1 = tapply(f$parcel.length.m, list(f$tow.depth), FUN = fivenum)
 freestyle2 = tapply(f$parcel.length.m, list(f$region), FUN = fivenum)
-
+freestyle3 = tapply(f$parcel.length.m, list(f$tow.depth,f$region), FUN = fivenum)
