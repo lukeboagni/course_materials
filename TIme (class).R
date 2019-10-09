@@ -17,10 +17,11 @@ date = str_c(mm,dd,yy, sep = "/")
 d$hour = as.numeric(str_sub(d$Time,1,2))
 d$min = as.numeric(str_sub(d$Time,4,5))
 d$sec = as.numeric(str_sub(d$Time,7,11))
-d$time = str_c(d$hour,d$min,d$sec, sep = " ")
+d$Time = str_c(d$hour,d$min,d$sec, sep = ":")
 d$date = date
-d$dateTime = str_c(d$date,d$time, sep =" ")
-d$dateTime = as.POSIXct(strptime(d$dateTime, format = "%m/%d/%y %H:%M:%S", tz="America/New_York")) 
+d$dateTime = str_c(d$date,d$Time, sep =" ")
+d$dateTime = as.POSIXct(strptime(d$dateTime, format = "%m/%d/%y %H:%M:%OS", tz="America/New_York")) 
 
-d$dateTime = d$dateTime - time.zone.change * 3600
+d$date
+d$Time
   
