@@ -15,6 +15,17 @@ beachply = adply(beach_data, .margins = 1, function(file){
   return(d)
 }, .inform = T)
 
+beachply.ohio = beachply[beachply$`Beach Name` == "Ohio Street Beach",]
+beachply.ohio$obs = seq(1,nrow(beachply.ohio),1)
+observations = beachply.ohio$obs
+water_temp = beachply.ohio$`Water Temperature`
+
+ggplot(data = beachply.ohio, aes(x = observations, y = water_temp)) + geom_point()
 
 save(beachply,file = "Chicago Beach Data 2014-2017")
+
+
+
+
+
 
