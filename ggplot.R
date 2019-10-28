@@ -29,4 +29,42 @@ ggplot(data = mpg, aes(displ,fill = drv)) +geom_histogram()
 
 ggplot(data = mpg, aes(displ, color = drv)) +geom_freqpoly()
 
+#economics example ----
+##one geom
+data("economics")
+unemploy = ggplot(data = e, aes(x = date, y = unemploy)) + geom_line()
+unemploy
+
+##multiple geoms
+data("presidential")
+pres = presidential;rm(presidential)
+
+caption = paste(strwrap("Unemployment rates in the US have varied a lot over the years",40), collapse = "\n")
+yrng = range(e$unemploy)
+xrng = range(e$date)
+date = as.Date("1960-01-01")
+
+ggplot(e) +
+  geom_line(aes(x = date, y = unemploy)) +
+  geom_rect(data = pres, aes(xmin = start, xmax = end, fill = party),
+            ymin = -Inf, ymax = Inf, alpha = .2) + 
+  scale_fill_manual(values = c("dodgerblue","firebrick3")) +
+  geom_vline(data = pres, aes(xintercept = as.numeric(start)),colour="grey50", alpha = .5) +
+  geom_text (data = pres, aes(x = start, y = 2500, label = name), size = 3, vjust = 0, hjust = 0, nudge_x = 100) +
+  annotate("text", x = date,y = yrng[2],label = caption,hjust = 0,vjust = 1,size =4 )
+ 
+#special request
+library(tidyverse)
+load("fish_data.Rdata")
+f = fish;rm(fish)
+
+fs = f %>% group_by(area_fac,depth_fac,yr_fac) %>% summarize(parcel.count = length(parcel.id))
+
+ggplot(data = fs) +
+  geom_bar(aes(x = yr_fac, y = parcel.count, fill = depth_fac), position = "stack" ,stat = "identity") +
+  facet_wrap(.~area_fac)
+
+
+
+
 
