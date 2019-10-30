@@ -15,11 +15,11 @@ ggplot(data = mpg, aes(x = displ, y = hwy)) + geom_point(color = "blue")
 ggplot(data = mpg, aes(x = displ, y = hwy, color = class)) + geom_line() +
   scale_color_manual(values = c("red","blue","darkgreen","goldenrod","black","blueviolet","chocolate2")) 
 
-#facets ----
+#facets 
 ggplot(data = mpg, aes(x = displ, y = hwy, color = class)) + geom_point() +
   facet_grid(~class)
 
-#smoother - adds best fit ----
+#smoother - adds best fit 
 ggplot(data = mpg, aes(x = displ, y = hwy)) + geom_point() + geom_smooth()
 ggplot(data = mpg, aes(x = displ, y = hwy)) + geom_point() + geom_smooth(method = "lm")
      
@@ -63,6 +63,55 @@ fs = f %>% group_by(area_fac,depth_fac,yr_fac) %>% summarize(parcel.count = leng
 ggplot(data = fs) +
   geom_bar(aes(x = yr_fac, y = parcel.count, fill = depth_fac), position = "stack" ,stat = "identity") +
   facet_wrap(.~area_fac)
+
+#using ddply to plot multiple objects ----
+library(plyr)
+
+ggplot(f,aes(parcel.length.m, parcel.density.m3, color = depth_fac)) +geom_point() + 
+  xlab("Parcel Length (m)") +
+  ylab(expression(paste("Parcel Density (",m^3,")")))
+
+
+ddply(.data = f, .variables = "depth_fac", function(x){
+  name = unique(x$depth_fac)
+  pl = ggplot(f,aes(parcel.length.m, parcel.density.m3)) + geom_point() +
+    xlab("parcel length (m)") +
+    ylab(expression(paste("Parcel Density (",m^3,")"))) +
+    ggtitle(name)
+ 
+  
+  
+  ggsave(filename = paste0(name,".tiff"), plot = pl, width = 4, height = 3, 
+         units = 'in', dpi = 600)
+         
+}, .progress = "text")
+
+#break up by transect id
+ddply(.data = f, .variables = "transect.id", function(x){
+  name = unique(x$transect.id)
+  pl = ggplot(f,aes(parcel.length.m, parcel.density.m3)) + geom_point() +
+    xlab("parcel length (m)") +
+    ylab(expression(paste("Parcel Density (",m^3,")"))) +
+    ggtitle(name)
+  
+  
+  
+  ggsave(filename = paste0(name,".tiff"), plot = pl, width = 4, height = 3, 
+         units = 'in', dpi = 600)
+  
+}, .progress = "text")
+
+
+#plotting 3 variables
+data(mtcars)
+mt = mtcars;rm(mtcars)
+
+ggplot(mt, aes(vs, cyl, fill = mpg)) + geom_tile()
+
+ggplot(mt, aes(wt,mpg)) + geom_point(aes(size = cyl)) + theme_get() 
+
+
+
 
 
 
